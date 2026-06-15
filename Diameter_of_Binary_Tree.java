@@ -438,7 +438,7 @@ Netflix
 Adobe
 */
 
-import java.util.*;
+
 
 // Tree Node Definition
 class TreeNode {
@@ -519,3 +519,269 @@ public class Diameter_of_Binary_Tree {
                 + obj.diameterOfBinaryTree(root));
     }
 }
+/*
+Question: Diameter of Binary Tree
+
+LeetCode 543
+
+Problem Statement:
+
+Given the root of a binary tree, return the diameter
+of the tree.
+
+The diameter of a binary tree is the length of the
+longest path between any two nodes in the tree.
+
+The path may or may not pass through the root.
+
+Note:
+Diameter is measured in terms of edges.
+
+--------------------------------------------------
+
+Example 1:
+
+Input:
+
+        1
+       / \
+      2   3
+     / \
+    4   5
+
+Output:
+
+3
+
+Explanation:
+
+Longest path:
+
+4 → 2 → 1 → 3
+
+Number of edges = 3
+
+--------------------------------------------------
+
+Example 2:
+
+Input:
+
+    1
+   /
+  2
+
+Output:
+
+1
+
+--------------------------------------------------
+
+Approach:
+
+For every node:
+
+Diameter passing through that node
+
+= Height(Left Subtree)
++ Height(Right Subtree)
+
+While calculating height, update the maximum
+diameter found so far.
+
+This allows us to solve the problem in a
+single DFS traversal.
+
+--------------------------------------------------
+
+Algorithm:
+
+1. Recursively calculate left height.
+2. Recursively calculate right height.
+3. Update diameter:
+
+       diameter = max(diameter,
+                      leftHeight + rightHeight)
+
+4. Return:
+
+       1 + max(leftHeight, rightHeight)
+
+--------------------------------------------------
+
+Dry Run:
+
+        1
+       / \
+      2   3
+     / \
+    4   5
+
+Node 4:
+
+Height = 1
+
+----------------
+
+Node 5:
+
+Height = 1
+
+----------------
+
+Node 2:
+
+Diameter through node
+
+= 1 + 1 = 2
+
+Height = 2
+
+----------------
+
+Node 3:
+
+Height = 1
+
+----------------
+
+Node 1:
+
+Diameter through node
+
+= 2 + 1 = 3
+
+Answer = 3
+
+--------------------------------------------------
+
+Key Observation:
+
+Height returns information upward.
+
+Diameter is maintained globally.
+
+Height:
+
+1 + max(left, right)
+
+Diameter:
+
+left + right
+
+--------------------------------------------------
+
+Complexity Analysis:
+
+Time Complexity:
+
+O(N)
+
+Each node is visited once.
+
+Space Complexity:
+
+O(H)
+
+H = Height of Tree
+
+Worst Case:
+
+O(N)
+
+Best Case:
+
+O(log N)
+
+--------------------------------------------------
+
+Related Questions:
+
+1. Diameter of Binary Tree (LeetCode 543)
+2. Maximum Depth of Binary Tree (LeetCode 104)
+3. Balanced Binary Tree (LeetCode 110)
+4. Binary Tree Maximum Path Sum (LeetCode 124)
+5. Longest Univalue Path (LeetCode 687)
+
+--------------------------------------------------
+
+Company Tags:
+
+Intel
+Alibaba
+Swiggy
+Freshworks
+Electronic Arts
+Optum
+Reddit
+PayPal
+Stripe
+Visa
+Qualcomm
+Siemens Healthineers
+Robinhood
+Byju's
+Deloitte
+NVIDIA
+Wayfair
+Airbnb
+Rakuten
+Mastercard
+Snowflake
+OYO Rooms
+Splunk
+Bloomberg
+GE Healthcare
+Google
+Microsoft
+Amazon
+Meta
+Apple
+Netflix
+Adobe
+*/
+
+// Definition for a binary tree node.
+class TreeNode {
+
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int val) {
+        this.val = val;
+    }
+}
+
+class Solution {
+
+    private int diameter = 0;
+
+    public int diameterOfBinaryTree(TreeNode root) {
+
+        height(root);
+
+        return diameter;
+    }
+
+    private int height(TreeNode node) {
+
+        if (node == null)
+            return 0;
+
+        int leftHeight = height(node.left);
+
+        int rightHeight = height(node.right);
+
+        diameter = Math.max(
+                diameter,
+                leftHeight + rightHeight
+        );
+
+        return 1 + Math.max(
+                leftHeight,
+                rightHeight
+        );
+    }
+}
+
